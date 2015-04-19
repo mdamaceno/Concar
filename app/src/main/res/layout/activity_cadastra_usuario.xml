@@ -52,7 +52,25 @@
             android:layout_height="wrap_content"
             android:hint="Senha"
             android:layout_gravity="center_vertical"
-            android:id="@+id/editText"
+            android:id="@+id/edtSenha"
+            android:inputType="textPassword"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Senha novamente"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/edtSenha2"
             android:inputType="textPassword"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -98,6 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:onClick="cadastrarOnClick"
             android:text="Cadastrar"/>
 
     </LinearLayout>
