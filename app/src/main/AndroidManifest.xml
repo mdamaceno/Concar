@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListaUsuariosActivity" >
+            <meta-data
+                android:name="android.intent.action.LISTA_MENU_ACTIVITY"
+                android:value=".ListaMenuActivity"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

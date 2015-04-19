@@ -1,20 +1,51 @@
 package br.com.concar.concar;
 
+import android.app.ActionBar;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.concar.concar.dao.UsuarioDAO;
+import br.com.concar.concar.database.DatabaseHelper;
+import br.com.concar.concar.model.Usuario;
 
 /**
  * Created by mdamaceno on 18/04/15.
  */
 public class ListaUsuariosActivity extends ActionBarActivity {
-
+    private UsuarioDAO database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_usuarios);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        database = new UsuarioDAO(this);
+
+        try {
+            database.open();
+            List<Usuario> values = database.index();
+
+            ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this, android.R.layout.simple_list_item_1, values);
+            ListView allvalues = (ListView)findViewById(R.id.listagem_usuarios);
+            allvalues.setAdapter(adapter);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -32,10 +63,15 @@ public class ListaUsuariosActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
     }
 }
