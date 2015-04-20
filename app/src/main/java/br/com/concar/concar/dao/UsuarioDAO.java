@@ -35,22 +35,15 @@ public class UsuarioDAO {
         dbHelper.close();
     }
 
-    public Usuario create(String usuario) {
+    public boolean create(Usuario usuario) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_U_NOME, usuario);
-        values.put(DatabaseHelper.COLUMN_U_EMAIL, usuario);
-        values.put(DatabaseHelper.COLUMN_U_SENHA, usuario);
-        values.put(DatabaseHelper.COLUMN_U_TIPO, usuario);
+        values.put(DatabaseHelper.COLUMN_U_NOME, usuario.getNome());
+        values.put(DatabaseHelper.COLUMN_U_EMAIL, usuario.getEmail());
+        values.put(DatabaseHelper.COLUMN_U_SENHA, usuario.getSenha());
+        values.put(DatabaseHelper.COLUMN_U_TIPO, usuario.getTipo());
 
-        long insertId = database.insert(DatabaseHelper.TABLE_U, null, values);
-
-        Cursor cursor = database.query(DatabaseHelper.TABLE_U, colunas, DatabaseHelper.COLUMN_U_ID + " = " + insertId, null, null, null, null);
-        cursor.moveToFirst();
-
-        Usuario novoUsuario = cursorToUsuario(cursor);
-        cursor.close();
-
-        return novoUsuario;
+        return (db.insert(DatabaseHelper.TABLE_U, null, values) > 0);
     }
 
     public void destroy(Usuario usuario) {

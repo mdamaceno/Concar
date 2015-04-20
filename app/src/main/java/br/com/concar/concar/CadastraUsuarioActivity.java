@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import br.com.concar.concar.dao.UsuarioDAO;
 import br.com.concar.concar.database.DatabaseHelper;
+import br.com.concar.concar.model.Usuario;
 
 
 public class CadastraUsuarioActivity extends ActionBarActivity {
@@ -56,24 +58,38 @@ public class CadastraUsuarioActivity extends ActionBarActivity {
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         edtSenha2 = (EditText) findViewById(R.id.edtSenha2);
+        rg = (RadioGroup) findViewById(R.id.rdoTipo);
 
-        if (edtSenha2.getText().toString().equals(edtSenha.getText().toString())) {
+        if (edtNome.getText().toString().equals("") || edtEmail.getText().toString().equals("") || edtSenha.getText().toString().equals("")) {
+            Toast toast = Toast.makeText(this, "Todos os campos precisam ser preenchidos.", Toast.LENGTH_LONG);
+            toast.show();
+
+        } else if (edtSenha2.getText().toString().equals(edtSenha.getText().toString())) {
+
             SQLiteDatabase db = helper.getWritableDatabase();
 
-            ContentValues values = new ContentValues();
-            values.put("nome", edtNome.getText().toString());
-            values.put("email", edtEmail.getText().toString());
-            values.put("senha", edtSenha.getText().toString());
-            values.put("tipo", pos1);
+            UsuarioDAO dao = new UsuarioDAO(this);
 
-            long resultado = db.insert("usuarios", null, values);
+            Usuario u = new Usuario();
+            u.setNome(edtNome.getText().toString());
+            u.setEmail(edtEmail.getText().toString());
+            u.setSenha(edtSenha.getText().toString());
+            int checkedRadioButton = rg.getCheckedRadioButtonId();
 
-            if(resultado != -1) {
+            if (checkedRadioButton == R.id.rdoTipoCliente) {
+                u.setTipo(1);
+            } else {
+                u.setTipo(0);
+            }
+
+            boolean resultado = dao.create(u);
+
+            if (resultado != false) {
                 SQLiteDatabase dbh = helper.getReadableDatabase();
-                Cursor c = dbh.rawQuery("select * from usuarios",null);
+                Cursor c = dbh.rawQuery("select * from usuarios", null);
                 c.moveToFirst();
 
-                while (c.moveToNext()){
+                while (c.moveToNext()) {
                     Log.d("Nome: ", c.getString(1));
                 }
 
@@ -100,6 +116,7 @@ public class CadastraUsuarioActivity extends ActionBarActivity {
             edtSenha.setText("");
             edtSenha2.setText("");
         }
+
     }
 
 
