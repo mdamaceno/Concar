@@ -1,12 +1,15 @@
 package br.com.concar.concar;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -23,6 +26,7 @@ import br.com.concar.concar.model.Usuario;
  */
 public class ListaUsuariosActivity extends ActionBarActivity {
     private UsuarioDAO database;
+    private AlertDialog.Builder testAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,17 @@ public class ListaUsuariosActivity extends ActionBarActivity {
             ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this, android.R.layout.simple_list_item_1, values);
             ListView allvalues = (ListView)findViewById(R.id.listagem_usuarios);
             allvalues.setAdapter(adapter);
+
+            testAlert = new AlertDialog.Builder(this);
+
+            allvalues.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    testAlert.setMessage("Selecionado item: " + position);
+                    AlertDialog test = testAlert.create();
+                    test.show();
+                }
+            });
         } catch (SQLException e) {
             e.printStackTrace();
         }
