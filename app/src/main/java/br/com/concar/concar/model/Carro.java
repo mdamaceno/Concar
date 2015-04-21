@@ -85,4 +85,8 @@ public class Carro {
         this.preco = preco;
     }
 
+    @Override
+    public String toString() {
+        return this.id + ". " + this.marca + " " + this.modelo + " " + this.ano;
+    }
 }

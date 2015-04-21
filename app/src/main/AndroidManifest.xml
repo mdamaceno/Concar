@@ -29,7 +29,8 @@
         <activity android:name=".ListaUsuariosActivity" >
             <meta-data
                 android:name="android.intent.action.LISTA_MENU_ACTIVITY"
-                android:value=".ListaMenuActivity"/>
+                android:value=".ListaMenuActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -37,7 +38,8 @@
         <activity android:name=".ListaClientesActivity" >
             <meta-data
                 android:name="android.intent.action.LISTA_MENU_ACTIVITY"
-                android:value=".ListaMenuActivity"/>
+                android:value=".ListaMenuActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -47,15 +49,19 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastraUsuarioActivity">
+        <activity android:name=".CadastraUsuarioActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastraClienteActivity">
+        <activity android:name=".CadastraClienteActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CadastraCarroActivity"
+            android:label="@string/title_activity_cadastra_carro" >
         </activity>
     </application>
 

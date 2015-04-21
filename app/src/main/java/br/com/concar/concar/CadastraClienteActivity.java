@@ -23,7 +23,7 @@ public class CadastraClienteActivity extends ActionBarActivity {
 
     private DatabaseHelper helper;
     private EditText edtNome, edtEmail, edtTelefone, edtSenha, edtSenha2;
-    RadioGroup rg;
+    private RadioGroup rg;
     int pos, pos1;
 
     @Override
@@ -41,15 +41,6 @@ public class CadastraClienteActivity extends ActionBarActivity {
                 pos = rg.indexOfChild(findViewById(rg.getCheckedRadioButtonId()));
 
                 Toast.makeText(getBaseContext(), "ID = " + String.valueOf(pos), Toast.LENGTH_SHORT).show();
-
-                switch (pos){
-                    case 0 :
-                        pos1 = 0;
-                        break;
-                    case 1 :
-                        pos1 = 1;
-                        break;
-                }
             }
         });
     }

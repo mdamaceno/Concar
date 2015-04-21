@@ -28,7 +28,8 @@ public class ListaMenuActivity extends ActionBarActivity {
                 new String("Clientes cadastrados"),
                 new String("Propostas"),
                 new String("Cadastrar novo usuário"),
-                new String("Cadastrar novo cliente")
+                new String("Cadastrar novo cliente"),
+                new String("Cadastrar novo carro")
         };
 
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
@@ -54,6 +55,9 @@ public class ListaMenuActivity extends ActionBarActivity {
                         break;
                     case 5:
                         startActivity(new Intent(getApplicationContext(), CadastraClienteActivity.class));
+                        break;
+                    case 6:
+                        startActivity(new Intent(getApplicationContext(), CadastraCarroActivity.class));
                         break;
                 }
             }
