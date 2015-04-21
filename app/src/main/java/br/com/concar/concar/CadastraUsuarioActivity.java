@@ -22,8 +22,6 @@ public class CadastraUsuarioActivity extends ActionBarActivity {
 
     private DatabaseHelper helper;
     private EditText edtNome, edtEmail, edtSenha, edtSenha2;
-    RadioGroup rg;
-    int pos, pos1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +29,6 @@ public class CadastraUsuarioActivity extends ActionBarActivity {
         setContentView(R.layout.activity_cadastra_usuario);
 
         helper = DatabaseHelper.getInstance(this);
-
-        rg = (RadioGroup) findViewById(R.id.rdoTipo);
-
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                pos = rg.indexOfChild(findViewById(rg.getCheckedRadioButtonId()));
-
-                Toast.makeText(getBaseContext(), "ID = " + String.valueOf(pos), Toast.LENGTH_SHORT).show();
-
-                switch (pos){
-                    case 0 :
-                        pos1 = 0;
-                        break;
-                    case 1 :
-                        pos1 = 1;
-                        break;
-                }
-            }
-        });
     }
 
     public void cadastrarOnClick(View view) {
@@ -58,7 +36,6 @@ public class CadastraUsuarioActivity extends ActionBarActivity {
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         edtSenha2 = (EditText) findViewById(R.id.edtSenha2);
-        rg = (RadioGroup) findViewById(R.id.rdoTipo);
 
         if (edtNome.getText().toString().equals("") || edtEmail.getText().toString().equals("") || edtSenha.getText().toString().equals("")) {
             Toast toast = Toast.makeText(this, "Todos os campos precisam ser preenchidos.", Toast.LENGTH_LONG);
@@ -74,13 +51,6 @@ public class CadastraUsuarioActivity extends ActionBarActivity {
             u.setNome(edtNome.getText().toString());
             u.setEmail(edtEmail.getText().toString());
             u.setSenha(edtSenha.getText().toString());
-            int checkedRadioButton = rg.getCheckedRadioButtonId();
-
-            if (checkedRadioButton == R.id.rdoTipoCliente) {
-                u.setTipo(1);
-            } else {
-                u.setTipo(0);
-            }
 
             boolean resultado = dao.create(u);
 

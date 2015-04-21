@@ -84,35 +84,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp">
-
-        <RadioGroup
-            android:id="@+id/rdoTipo"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vendedor"
-                android:id="@+id/rdoTipoVendedor" />
-
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cliente"
-                android:checked="true"
-                android:id="@+id/rdoTipoCliente" />
-        </RadioGroup>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:orientation="horizontal">

@@ -20,7 +20,7 @@ public class UsuarioDAO {
     private DatabaseHelper dbHelper;
     private String[] colunas = {
         DatabaseHelper.COLUMN_U_ID, DatabaseHelper.COLUMN_U_NOME, DatabaseHelper.COLUMN_U_EMAIL,
-        DatabaseHelper.COLUMN_U_SENHA, DatabaseHelper.COLUMN_U_TIPO
+        DatabaseHelper.COLUMN_U_SENHA
     };
 
     public UsuarioDAO(Context context) {
@@ -41,7 +41,6 @@ public class UsuarioDAO {
         values.put(DatabaseHelper.COLUMN_U_NOME, usuario.getNome());
         values.put(DatabaseHelper.COLUMN_U_EMAIL, usuario.getEmail());
         values.put(DatabaseHelper.COLUMN_U_SENHA, usuario.getSenha());
-        values.put(DatabaseHelper.COLUMN_U_TIPO, usuario.getTipo());
 
         return (db.insert(DatabaseHelper.TABLE_U, null, values) > 0);
     }
@@ -77,7 +76,6 @@ public class UsuarioDAO {
         usuario.setNome(cursor.getString(1));
         usuario.setEmail(cursor.getString(2));
         usuario.setSenha(cursor.getString(3));
-        usuario.setTipo(cursor.getInt(4));
 
         return usuario;
     }

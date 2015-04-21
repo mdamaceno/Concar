@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
     private Context ctx;
     private static final String BANCO_DADOS = "Concar";
-    private static int VERSAO = 1;
+    private static int VERSAO = 2;
 
     /* Tabela usuarios e suas colunas */
     public static final String TABLE_U = "usuarios";
@@ -19,7 +19,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_U_NOME = "nome";
     public static final String COLUMN_U_EMAIL = "email";
     public static final String COLUMN_U_SENHA = "senha";
-    public static final String COLUMN_U_TIPO = "tipo";
+
+    /* Tabela clientes e suas colunas */
+    public static final String TABLE_K = "clientes";
+    public static final String COLUMN_K_ID = "_id";
+    public static final String COLUMN_K_NOME = "nome";
+    public static final String COLUMN_K_EMAIL = "email";
+    public static final String COLUMN_K_TELEFONE = "telefone";
+    public static final String COLUMN_K_SENHA = "senha";
+    public static final String COLUMN_K_SEXO = "sexo";
 
     /* Tabela carros e suas colunas */
     public static final String TABLE_C = "carros";
@@ -61,7 +69,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_U + " (" + COLUMN_U_ID + " INTEGER PRIMARY KEY, " +
-                COLUMN_U_NOME + " TEXT, " + COLUMN_U_EMAIL + " TEXT, " + COLUMN_U_SENHA + " TEXT, " + COLUMN_U_TIPO + " INTEGER);");
+                COLUMN_U_NOME + " TEXT, " + COLUMN_U_EMAIL + " TEXT, " + COLUMN_U_SENHA + " TEXT);");
+
+        db.execSQL("CREATE TABLE " + TABLE_K + " (" + COLUMN_K_ID + " INTEGER PRIMARY KEY, " +
+                COLUMN_K_NOME + " TEXT, " + COLUMN_K_EMAIL + " TEXT, " + COLUMN_K_SENHA + " TEXT, " + COLUMN_K_TELEFONE + " TEXT, " + COLUMN_K_SEXO + " INTEGER);");
 
         db.execSQL("CREATE TABLE " + TABLE_C + " (" + COLUMN_C_ID + " INTEGER PRIMARY KEY, " +
                 COLUMN_C_MARCA + " TEXT, " + COLUMN_C_MODELO + " TEXT, " + COLUMN_C_ANO + " INTEGER, " + COLUMN_C_QUILOMETRAGEM + " REAL, " +
@@ -75,6 +86,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_U);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_C);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_P);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_K);
         this.ctx.deleteDatabase(BANCO_DADOS);
         onCreate(db);
     }

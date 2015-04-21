@@ -20,12 +20,12 @@
             android:paddingTop="20px"
             android:textStyle="bold"
             android:textColor="#1C4909"
-            android:text="Usuários cadastrados"/>
+            android:text="Clientes cadastrados"/>
 
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listagem_usuarios"
+        android:id="@+id/listagem_clientes"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"></ListView>
 

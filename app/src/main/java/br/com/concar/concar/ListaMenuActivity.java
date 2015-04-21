@@ -1,7 +1,6 @@
 package br.com.concar.concar;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -10,10 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 /**
  * Created by mdamaceno on 18/04/15.
@@ -29,9 +24,11 @@ public class ListaMenuActivity extends ActionBarActivity {
 
         final String[] items = new String[] {
                 new String("Carros cadastrados"),
+                new String("Usuário cadastrados"),
                 new String("Clientes cadastrados"),
                 new String("Propostas"),
-                new String("Cadastrar novo usuário")
+                new String("Cadastrar novo usuário"),
+                new String("Cadastrar novo cliente")
         };
 
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
@@ -47,10 +44,16 @@ public class ListaMenuActivity extends ActionBarActivity {
                         startActivity(new Intent(getApplicationContext(), ListaUsuariosActivity.class));
                         break;
                     case 2:
-                        startActivity(new Intent(getApplicationContext(), ListaPropostasActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ListaClientesActivity.class));
                         break;
                     case 3:
+                        startActivity(new Intent(getApplicationContext(), ListaPropostasActivity.class));
+                        break;
+                    case 4:
                         startActivity(new Intent(getApplicationContext(), CadastraUsuarioActivity.class));
+                        break;
+                    case 5:
+                        startActivity(new Intent(getApplicationContext(), CadastraClienteActivity.class));
                         break;
                 }
             }

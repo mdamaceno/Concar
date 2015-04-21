@@ -1,11 +1,12 @@
 package br.com.concar.concar.model;
 
 /**
- * Created by mdamaceno on 18/04/15.
+ * Created by mdamaceno on 20/04/15.
  */
-public class Usuario {
+public class Cliente {
     private int id;
-    private String nome, email, senha;
+    private String nome, email, senha, telefone;
+    private int sexo;
 
     public int getId() {
         return id;
@@ -37,6 +38,22 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public int getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(int sexo) {
+        this.sexo = sexo;
     }
 
     @Override
