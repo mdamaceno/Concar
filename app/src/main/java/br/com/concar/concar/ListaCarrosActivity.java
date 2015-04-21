@@ -50,15 +50,23 @@ public class ListaCarrosActivity extends ActionBarActivity {
             allvallues.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String SimNao1, SimNao2;
+
+                    if (values.get(position).getAirbag() == 0) { SimNao1 = "Não"; }
+                    else { SimNao1 = "Sim"; }
+
+                    if (values.get(position).getAr_condicionado() == 0) { SimNao2 = "Não"; }
+                    else { SimNao2 = "Sim"; }
+
                     alerta.setTitle("Informações do carro");
                     alerta.setMessage(
                         "Marca: " + values.get(position).getMarca() + "\n\n" +
                         "Modelo: " + values.get(position).getModelo() + "\n\n" +
                         "Ano: " + values.get(position).getAno() + "\n\n" +
-                        "Airbag: " + values.get(position).getAirbag() + "\n\n" +
-                        "Ar-condicionado: " + values.get(position).getAr_condicionado() + "\n\n" +
+                        "Airbag: " + SimNao1 + "\n\n" +
+                        "Ar-condicionado: " + SimNao2 + "\n\n" +
                         "Cor: " + values.get(position).getCor() + "\n\n" +
-                        "Preço: " + values.get(position).getPreco()
+                        "Preço: R$" + String.format("%10.2f", values.get(position).getPreco())
                     );
                     AlertDialog alert = alerta.create();
                     alert.show();
