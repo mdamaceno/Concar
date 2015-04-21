@@ -115,7 +115,7 @@ public class CadastraClienteActivity extends ActionBarActivity {
                 c.moveToFirst();
 
                 while (c.moveToNext()) {
-                    Log.d("Nome: ", c.getString(1));
+                    System.out.println("Nome: " + c.getString(1) + " - Sexo: " + c.getString(5));
                 }
 
                 c.close();

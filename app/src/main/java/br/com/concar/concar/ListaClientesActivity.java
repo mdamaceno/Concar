@@ -37,7 +37,7 @@ public class ListaClientesActivity extends ActionBarActivity {
 
         try {
             database.open();
-            List<Cliente> values = database.index();
+            final List<Cliente> values = database.index();
 
             ArrayAdapter<Cliente> adapter = new ArrayAdapter<Cliente>(this, android.R.layout.simple_list_item_1, values);
             ListView allvalues = (ListView)findViewById(R.id.listagem_clientes);
@@ -48,9 +48,23 @@ public class ListaClientesActivity extends ActionBarActivity {
             allvalues.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    testAlert.setMessage("Selecionado item: " + position);
+                    String sexo;
+                    if  (values.get(position).getSexo() == 0) {
+                        sexo = "Masculino";
+                    } else {
+                        sexo = "Feminino";
+                    }
+                    testAlert.setTitle("Informações do cliente");
+                    testAlert.setMessage(
+                            "Nome: " + values.get(position).getNome() + "\n\n" +
+                            "Email: " + values.get(position).getEmail() + "\n\n" +
+                            "Telefone: " + values.get(position).getTelefone() + "\n\n" +
+                            "Sexo: " + sexo
+                    );
+                    System.out.println("Sexo: " + values.get(position).getSexo());
                     AlertDialog test = testAlert.create();
                     test.show();
+                    sexo = null;
                 }
             });
         } catch (SQLException e) {

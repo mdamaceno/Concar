@@ -12,7 +12,6 @@ public class Carro {
     private int airbag, ar_condicionado;
     private String cor;
     private double preco;
-    private int idVendedor;
 
     public int getId() {
         return id;
@@ -86,11 +85,4 @@ public class Carro {
         this.preco = preco;
     }
 
-    public int getIdVendedor() {
-        return idVendedor;
-    }
-
-    public void setIdVendedor(int idVendedor) {
-        this.idVendedor = idVendedor;
-    }
 }
