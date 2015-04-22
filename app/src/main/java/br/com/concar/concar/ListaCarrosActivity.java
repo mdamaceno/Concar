@@ -75,7 +75,10 @@ public class ListaCarrosActivity extends ActionBarActivity {
                         public void onClick(DialogInterface dialog,
                                             int which) {
                             Intent pass = new Intent(getApplicationContext(), CadastraPropostaActivity.class);
-                            pass.putExtra("ID", String.valueOf(values.get(position).getId()));
+                            pass.putExtra("MARCA", values.get(position).getMarca());
+                            pass.putExtra("MODELO", values.get(position).getModelo());
+                            pass.putExtra("PRECO", String.format("%10.2f", values.get(position).getPreco()));
+                            pass.putExtra("ANO", String.valueOf(values.get(position).getAno()));
                             startActivity(pass);
                         }
                     });

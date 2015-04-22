@@ -4,9 +4,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class CadastraPropostaActivity extends ActionBarActivity {
+
+    private TextView txtMarca, txtModelo, txtPreco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,8 +17,17 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         setContentView(R.layout.activity_cadastra_proposta);
 
         Bundle bundle = getIntent().getExtras();
-        String id = bundle.getString("ID");
-        System.out.println(id);
+        String marca = bundle.getString("MARCA");
+        String modelo = bundle.getString("MODELO");
+        String preco = bundle.getString("PRECO");
+
+        txtMarca = (TextView)findViewById(R.id.txtMarca);
+        txtModelo = (TextView)findViewById(R.id.txtModelo);
+        txtPreco = (TextView)findViewById(R.id.txtPreco);
+
+        txtMarca.setText(marca);
+        txtModelo.setText(modelo);
+        txtPreco.setText("R$"+preco);
     }
 
 
