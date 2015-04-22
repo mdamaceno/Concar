@@ -1,6 +1,8 @@
 package br.com.concar.concar;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -49,7 +51,7 @@ public class ListaCarrosActivity extends ActionBarActivity {
 
             allvallues.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                     String SimNao1, SimNao2;
 
                     if (values.get(position).getAirbag() == 0) { SimNao1 = "Não"; }
@@ -60,14 +62,23 @@ public class ListaCarrosActivity extends ActionBarActivity {
 
                     alerta.setTitle("Informações do carro");
                     alerta.setMessage(
-                        "Marca: " + values.get(position).getMarca() + "\n\n" +
-                        "Modelo: " + values.get(position).getModelo() + "\n\n" +
-                        "Ano: " + values.get(position).getAno() + "\n\n" +
-                        "Airbag: " + SimNao1 + "\n\n" +
-                        "Ar-condicionado: " + SimNao2 + "\n\n" +
-                        "Cor: " + values.get(position).getCor() + "\n\n" +
-                        "Preço: R$" + String.format("%10.2f", values.get(position).getPreco())
+                            "Marca: " + values.get(position).getMarca() + "\n\n" +
+                                    "Modelo: " + values.get(position).getModelo() + "\n\n" +
+                                    "Ano: " + values.get(position).getAno() + "\n\n" +
+                                    "Airbag: " + SimNao1 + "\n\n" +
+                                    "Ar-condicionado: " + SimNao2 + "\n\n" +
+                                    "Cor: " + values.get(position).getCor() + "\n\n" +
+                                    "Preço: R$" + String.format("%10.2f", values.get(position).getPreco())
                     );
+                    alerta.setPositiveButton("Fazer proposta", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            Intent pass = new Intent(getApplicationContext(), CadastraPropostaActivity.class);
+                            pass.putExtra("ID", String.valueOf(values.get(position).getId()));
+                            startActivity(pass);
+                        }
+                    });
                     AlertDialog alert = alerta.create();
                     alert.show();
                 }

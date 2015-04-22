@@ -77,6 +77,27 @@ public class CarroDAO {
         return carros;
     }
 
+    public List<Carro> showOne(Carro carro) {
+        List<Carro> carros = new ArrayList<Carro>();
+
+        String whereClause = "id = ?";
+        String[] whereArgs = new String[] {
+            DatabaseHelper.COLUMN_C_ID
+        };
+        String limit = "LIMIT 1";
+        Cursor cursor = database.query(DatabaseHelper.TABLE_C, colunas, whereClause, whereArgs, null, null, limit);
+
+        while (!cursor.isAfterLast()) {
+            carro = cursorToCarro(cursor);
+            carros.add(carro);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return carros;
+    }
+
     private Carro cursorToCarro(Cursor cursor) {
         Carro carro = new Carro();
 

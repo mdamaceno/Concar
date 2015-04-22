@@ -5,4 +5,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_cadastra_usuario">CadastraUsuarioActivity</string>
     <string name="title_activity_cadastra_carro">Novo carro</string>
+    <string name="title_activity_cadastra_proposta">Nova proposta</string>
 </resources>

@@ -12,6 +12,7 @@ public class Proposta {
     private double valor_final;
     private boolean confirmacao;
     private int idCarro;
+    private int idCliente;
 
     public int getId() {
         return id;
@@ -75,5 +76,13 @@ public class Proposta {
 
     public void setIdCarro(int idCarro) {
         this.idCarro = idCarro;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 }
