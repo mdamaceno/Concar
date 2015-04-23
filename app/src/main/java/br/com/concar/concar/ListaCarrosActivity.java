@@ -79,6 +79,7 @@ public class ListaCarrosActivity extends ActionBarActivity {
                             pass.putExtra("MODELO", values.get(position).getModelo());
                             pass.putExtra("PRECO", String.format("%10.2f", values.get(position).getPreco()));
                             pass.putExtra("ANO", String.valueOf(values.get(position).getAno()));
+                            pass.putExtra("COR", values.get(position).getCor());
                             startActivity(pass);
                         }
                     });
