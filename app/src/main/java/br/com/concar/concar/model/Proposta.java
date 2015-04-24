@@ -88,6 +88,6 @@ public class Proposta {
 
     @Override
     public String toString() {
-        return this.id + ". " + this.idCarro;
+        return this.id + ". ID do carro: " + this.idCarro + " - R$" + String.format("%10.2f", this.valor_parcela);
     }
 }

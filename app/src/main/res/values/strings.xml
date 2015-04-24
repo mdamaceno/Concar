@@ -3,7 +3,14 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_cadastra_usuario">CadastraUsuarioActivity</string>
+    <string name="title_activity_cadastra_usuario">Novo usuário</string>
     <string name="title_activity_cadastra_carro">Novo carro</string>
     <string name="title_activity_cadastra_proposta">Nova proposta</string>
+    <string name="title_activity_cadastra_cliente">Novo cliente</string>
+    <string name="title_activity_lista_proposta">Propostas</string>
+    <string name="title_activity_lista_usuarios">Usuários</string>
+    <string name="title_activity_lista_clientes">Clientes</string>
+    <string name="title_activity_lista_carros">Carros</string>
+    <string name="title_activity_login">Login no Concar</string>
+    <string name="title_activity_lista_menu">Concar</string>
 </resources>

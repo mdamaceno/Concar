@@ -37,6 +37,11 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastra_proposta);
 
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         helper = DatabaseHelper.getInstance(this);
 
         bundle = getIntent().getExtras();
@@ -47,20 +52,17 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         String cor = bundle.getString("COR");
         String idCarro = bundle.getString("ID");
 
-        txtCampo1 = (TextView)findViewById(R.id.txtCampo1);
-        txtCampo2 = (TextView)findViewById(R.id.txtCampo2);
-        txtCampo3 = (TextView)findViewById(R.id.txtCampo3);
-        txtCampo4 = (TextView)findViewById(R.id.txtCampo4);
-        txtCampo5 = (TextView)findViewById(R.id.txtCampo5);
-        txtCampo6 = (TextView)findViewById(R.id.txtCampo6);
-        txtCampo7 = (TextView)findViewById(R.id.txtCampo7);
+        txtFields();
 
         txtCampo1.setText(marca + " " + modelo + " - " + ano);
         txtCampo2.setText("Cor: " + cor);
-        txtCampo3.setText("Valor do veículo: R$" + preco);
+        txtCampo3.setText(preco);
     }
 
     public void calcularOnClick(View view) {
+
+        txtFields();
+
         bundle = getIntent().getExtras();
         String preco1 = bundle.getString("PRECO");
         preco1 = preco1.replaceAll(",", ".");
@@ -88,13 +90,23 @@ public class CadastraPropostaActivity extends ActionBarActivity {
                 valorParcelas = totalValor / Integer.parseInt(edtParcela.getText().toString());
                 valorParcelas = valorParcelas + (valorParcelas * 1.52 / 100);
 
-                txtCampo4.setText("Entrada: R$" + String.format("%10.2f", Double.parseDouble(edtValorEntrada.getText().toString())));
-                txtCampo5.setText("Diferença: R$" + String.format("%10.2f", totalValor));
-                txtCampo6.setText("Nº de parcelas: " + edtParcela.getText().toString());
-                txtCampo7.setText("Valor das parcelas: R$" + String.format("%10.2f", valorParcelas) + " (com juros de 1,52% a.m)");
+                txtCampo4.setText(String.format("%10.2f", Double.parseDouble(edtValorEntrada.getText().toString()))); // Entrada
+                txtCampo5.setText(String.format("%10.2f", totalValor)); // Diferença
+                txtCampo6.setText(edtParcela.getText().toString()); // Numero de parcelas
+                txtCampo7.setText(String.format("%10.2f", valorParcelas)); // Valor das parcelas
             }
 
         }
+    }
+
+    public void txtFields() {
+        txtCampo1 = (TextView)findViewById(R.id.txtCampo1);
+        txtCampo2 = (TextView)findViewById(R.id.txtCampo2);
+        txtCampo3 = (TextView)findViewById(R.id.txtCampo3);
+        txtCampo4 = (TextView)findViewById(R.id.txtCampo4);
+        txtCampo5 = (TextView)findViewById(R.id.txtCampo5);
+        txtCampo6 = (TextView)findViewById(R.id.txtCampo6);
+        txtCampo7 = (TextView)findViewById(R.id.txtCampo7);
     }
 
     public void confirmarOnClick(View view) {
@@ -103,13 +115,15 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         PropostaDAO dao = new PropostaDAO(this);
         Proposta p = new Proposta();
 
+        txtFields();
+
         p.setTipo_pagamento(0);
         p.setConfirmacao(false);
-        p.setNum_parcelas(15);
-        p.setValor_entrada(5000);
-        p.setValor_carro(8000);
-        p.setValor_parcela(126);
-        p.setIdCarro(1);
+        p.setNum_parcelas(Integer.parseInt(txtCampo6.getText().toString()));
+        p.setValor_entrada(Double.parseDouble(txtCampo4.getText().toString().replaceAll(",",".")));
+        p.setValor_carro(Double.parseDouble(txtCampo3.getText().toString().replaceAll(",",".")));
+        p.setValor_parcela(Double.parseDouble(txtCampo7.getText().toString().replaceAll(",",".")));
+        p.setIdCarro(Integer.parseInt(idCarro));
         p.setIdCliente(1);
 
         boolean resultado = dao.create(p);
@@ -147,10 +161,15 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
     }
 }

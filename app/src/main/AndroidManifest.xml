@@ -16,17 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaMenuActivity" >
+        <activity android:name=".ListaMenuActivity" android:label="@string/title_activity_lista_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaCarrosActivity" >
+        <activity android:name=".ListaCarrosActivity" android:label="@string/title_activity_lista_carros" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaUsuariosActivity" >
+        <activity android:name=".ListaUsuariosActivity" android:label="@string/title_activity_lista_usuarios" >
             <meta-data
                 android:name="android.intent.action.LISTA_MENU_ACTIVITY"
                 android:value=".ListaMenuActivity" />
@@ -35,7 +35,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaClientesActivity" >
+        <activity android:name=".ListaClientesActivity" android:label="@string/title_activity_lista_clientes" >
             <meta-data
                 android:name="android.intent.action.LISTA_MENU_ACTIVITY"
                 android:value=".ListaMenuActivity" />
@@ -44,17 +44,17 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaPropostasActivity" >
+        <activity android:name=".ListaPropostasActivity" android:label="@string/title_activity_lista_proposta" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastraUsuarioActivity" >
+        <activity android:name=".CadastraUsuarioActivity" android:label="@string/title_activity_cadastra_usuario" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastraClienteActivity" >
+        <activity android:name=".CadastraClienteActivity" android:label="@string/title_activity_cadastra_cliente" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

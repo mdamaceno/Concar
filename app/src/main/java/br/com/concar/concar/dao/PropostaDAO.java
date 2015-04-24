@@ -81,7 +81,7 @@ public class PropostaDAO {
         proposta.setTipo_pagamento(cursor.getInt(1));
         proposta.setNum_parcelas(cursor.getInt(2));
         proposta.setValor_entrada(cursor.getDouble(3));
-//        proposta.setValor_carro(cursor.getDouble(4));
+        proposta.setValor_carro(cursor.getDouble(4));
         proposta.setValor_parcela(cursor.getDouble(4));
         proposta.setIdCarro(cursor.getInt(5));
         proposta.setIdCliente(cursor.getInt(6));
