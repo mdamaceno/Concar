@@ -20,9 +20,8 @@ import java.util.logging.Logger;
 
 public class CadastraPropostaActivity extends ActionBarActivity {
 
-    private TextView txtCampo1, txtCampo2, txtCampo3, txtCampo4;
-    protected LinearLayout layCampo4;
-    private EditText edtValorEntrada;
+    private TextView txtCampo1, txtCampo2, txtCampo3, txtCampo4, txtCampo5, txtCampo6, txtCampo7;
+    private EditText edtValorEntrada, edtParcela;
     private Bundle bundle;
     private AlertDialog.Builder alerta;
 
@@ -42,7 +41,9 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         txtCampo2 = (TextView)findViewById(R.id.txtCampo2);
         txtCampo3 = (TextView)findViewById(R.id.txtCampo3);
         txtCampo4 = (TextView)findViewById(R.id.txtCampo4);
-        layCampo4 = (LinearLayout)findViewById(R.layout)
+        txtCampo5 = (TextView)findViewById(R.id.txtCampo5);
+        txtCampo6 = (TextView)findViewById(R.id.txtCampo6);
+        txtCampo7 = (TextView)findViewById(R.id.txtCampo7);
 
         txtCampo1.setText(marca + " " + modelo + " - " + ano);
         txtCampo2.setText(cor);
@@ -52,9 +53,10 @@ public class CadastraPropostaActivity extends ActionBarActivity {
     public void calcularOnClick(View view) {
         bundle = getIntent().getExtras();
         String preco1 = bundle.getString("PRECO");
-        preco1 = preco1.replaceAll(",",".");
+        preco1 = preco1.replaceAll(",", ".");
 
         edtValorEntrada = (EditText)findViewById(R.id.edtValorEntrada);
+        edtParcela = (EditText)findViewById(R.id.edtParcela);
 
         if (edtValorEntrada.getText().toString().equals("")) {
             Toast.makeText(this, "Digite um valor para o cálculo.", Toast.LENGTH_SHORT).show();
@@ -63,9 +65,23 @@ public class CadastraPropostaActivity extends ActionBarActivity {
             Toast.makeText(this, "Valor de entrada deve ser menor que o valor do veículo.", Toast.LENGTH_SHORT).show();
 
         } else {
-                txtCampo4.setVisibility(View.VISIBLE);
-                layCampo4.setVisibility(View.VISIBLE);
-                txtCampo4.setText("Valor da prestação: ");
+            double totalValor =  Double.parseDouble(preco1) - Double.parseDouble(edtValorEntrada.getText().toString());
+            double valorParcelas = 0;
+
+            if (edtParcela.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "Digite o número de parcelas", Toast.LENGTH_LONG).show();
+
+            } else if (Integer.parseInt(edtParcela.getText().toString()) <= 0 || Integer.parseInt(edtParcela.getText().toString()) > 96){
+                Toast.makeText(getApplicationContext(), "Digite um número entre 1 e 96", Toast.LENGTH_LONG).show();
+
+            } else {
+                valorParcelas = totalValor / Integer.parseInt(edtParcela.getText().toString());
+
+                txtCampo4.setText("Entrada: R$" + String.format("%10.2f", Double.parseDouble(edtValorEntrada.getText().toString())));
+                txtCampo5.setText("Diferença: R$" + String.format("%10.2f", totalValor));
+                txtCampo6.setText("Nº de parcelas: " + edtParcela.getText().toString());
+                txtCampo7.setText("Valor das parcelas: R$" + String.format("%10.2f", valorParcelas));
+            }
 
         }
     }
