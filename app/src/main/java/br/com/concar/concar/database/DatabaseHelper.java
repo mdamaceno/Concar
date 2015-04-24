@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
     private Context ctx;
     private static final String BANCO_DADOS = "Concar";
-    private static int VERSAO = 2;
+    private static int VERSAO = 3;
 
     /* Tabela usuarios e suas colunas */
     public static final String TABLE_U = "usuarios";
@@ -48,11 +48,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_P_NUMPARCELAS = "num_parcelas";
     public static final String COLUMN_P_VALORENTRADA = "valor_entrada";
     public static final String COLUMN_P_VALORCARRO = "valor_carro";
-    public static final String COLUMN_P_VALORFINAL = "valor_final";
+    public static final String COLUMN_P_VALORPARCELA = "valor_parcela";
     public static final String COLUMN_P_CONFIRMACAO = "confirmacao";
     public static final String COLUMN_P_IDCARRO = "idCarro";
     public static final String COLUMN_P_IDCLIENTE = "idCliente";
-    public static final String COLUMN_P_IDVENDEDOR = "idVendedor";
 
     public DatabaseHelper(Context context) {
         super(context, BANCO_DADOS, null, VERSAO);
@@ -79,9 +78,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_C_AIRBAG + " INTEGER, " + COLUMN_C_ARCONDICIONADO + " INTEGER, " + COLUMN_C_COR + " TEXT, " + COLUMN_C_PRECO + " REAL);");
 
         db.execSQL("CREATE TABLE " + TABLE_P + " (" + COLUMN_P_ID + " INTEGER PRIMARY KEY, " +
-                COLUMN_P_IDCARRO + " INTEGER, " + COLUMN_P_IDCLIENTE + " INTEGER, " + COLUMN_P_IDVENDEDOR + " INTEGER " +
+                COLUMN_P_IDCARRO + " INTEGER, " + COLUMN_P_IDCLIENTE + " INTEGER, " +
                 COLUMN_P_TIPOPAGAMENTO + " INTEGER, " + COLUMN_P_NUMPARCELAS + " INTEGER, " + COLUMN_P_VALORENTRADA + " REAL " +
-                COLUMN_P_VALORCARRO + " REAL, " + COLUMN_P_VALORFINAL + " REAL, " + COLUMN_P_CONFIRMACAO + " INTEGER);");
+                COLUMN_P_VALORCARRO + " REAL, " + COLUMN_P_VALORPARCELA + " REAL, " + COLUMN_P_CONFIRMACAO + " INTEGER);");
     }
 
     @Override

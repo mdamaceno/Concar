@@ -2,6 +2,8 @@ package br.com.concar.concar;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,10 @@ import android.widget.Toast;
 
 import java.util.logging.Logger;
 
+import br.com.concar.concar.dao.PropostaDAO;
+import br.com.concar.concar.database.DatabaseHelper;
+import br.com.concar.concar.model.Proposta;
+
 
 public class CadastraPropostaActivity extends ActionBarActivity {
 
@@ -24,11 +30,14 @@ public class CadastraPropostaActivity extends ActionBarActivity {
     private EditText edtValorEntrada, edtParcela;
     private Bundle bundle;
     private AlertDialog.Builder alerta;
+    private DatabaseHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastra_proposta);
+
+        helper = DatabaseHelper.getInstance(this);
 
         bundle = getIntent().getExtras();
         String marca = bundle.getString("MARCA");
@@ -36,6 +45,7 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         String preco = bundle.getString("PRECO");
         String ano = bundle.getString("ANO");
         String cor = bundle.getString("COR");
+        String idCarro = bundle.getString("ID");
 
         txtCampo1 = (TextView)findViewById(R.id.txtCampo1);
         txtCampo2 = (TextView)findViewById(R.id.txtCampo2);
@@ -46,8 +56,8 @@ public class CadastraPropostaActivity extends ActionBarActivity {
         txtCampo7 = (TextView)findViewById(R.id.txtCampo7);
 
         txtCampo1.setText(marca + " " + modelo + " - " + ano);
-        txtCampo2.setText(cor);
-        txtCampo3.setText("R$" + preco);
+        txtCampo2.setText("Cor: " + cor);
+        txtCampo3.setText("Valor do veículo: R$" + preco);
     }
 
     public void calcularOnClick(View view) {
@@ -76,11 +86,12 @@ public class CadastraPropostaActivity extends ActionBarActivity {
 
             } else {
                 valorParcelas = totalValor / Integer.parseInt(edtParcela.getText().toString());
+                valorParcelas = valorParcelas + (valorParcelas * 1.52 / 100);
 
                 txtCampo4.setText("Entrada: R$" + String.format("%10.2f", Double.parseDouble(edtValorEntrada.getText().toString())));
                 txtCampo5.setText("Diferença: R$" + String.format("%10.2f", totalValor));
                 txtCampo6.setText("Nº de parcelas: " + edtParcela.getText().toString());
-                txtCampo7.setText("Valor das parcelas: R$" + String.format("%10.2f", valorParcelas));
+                txtCampo7.setText("Valor das parcelas: R$" + String.format("%10.2f", valorParcelas) + " (com juros de 1,52% a.m)");
             }
 
         }
@@ -88,38 +99,36 @@ public class CadastraPropostaActivity extends ActionBarActivity {
 
     public void confirmarOnClick(View view) {
         bundle = getIntent().getExtras();
-        String preco1 = bundle.getString("PRECO");
-        preco1 = preco1.replaceAll(",",".");
+        String idCarro = bundle.getString("ID");
+        PropostaDAO dao = new PropostaDAO(this);
+        Proposta p = new Proposta();
 
-        edtValorEntrada = (EditText)findViewById(R.id.edtValorEntrada);
+        p.setTipo_pagamento(0);
+        p.setConfirmacao(false);
+        p.setNum_parcelas(15);
+        p.setValor_entrada(5000);
+        p.setValor_carro(8000);
+        p.setValor_parcela(126);
+        p.setIdCarro(1);
+        p.setIdCliente(1);
 
-        if (edtValorEntrada.getText().toString().equals("")) {
-            Toast.makeText(this, "Digite um valor para o cálculo.", Toast.LENGTH_SHORT).show();
+        boolean resultado = dao.create(p);
 
-        } else if (Double.parseDouble(preco1) < Double.parseDouble(edtValorEntrada.getText().toString())) {
-            Toast.makeText(this, "Valor de entrada deve ser menor que o valor do veículo.", Toast.LENGTH_SHORT).show();
+        if (resultado != false) {
+            SQLiteDatabase dbh = helper.getReadableDatabase();
+            Cursor cur = dbh.rawQuery("select * from propostas", null);
+            cur.moveToFirst();
 
+            while (cur.moveToNext()) {
+                System.out.println("PPPPPPPPPP: " + cur.getString(1) + " - AAAAAAAAAAA: " + cur.getString(2));
+            }
+
+            cur.close();
+            Toast toast = Toast.makeText(this, "Proposta registrada com sucesso.", Toast.LENGTH_LONG);
+            toast.show();
         } else {
-            LayoutInflater inflater = getLayoutInflater();
-            final LinearLayout prop = (LinearLayout)getLayoutInflater().inflate(R.layout.proposta, null);
-            final double totalValor = Double.parseDouble(preco1) - Double.parseDouble(edtValorEntrada.getText().toString());
-
-            alerta = new AlertDialog.Builder(this);
-            alerta.setTitle("Proposta");
-            alerta.setNeutralButton("Calcular", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(getBaseContext(), "Ola mundo", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            alerta.setMessage("Diferença a ser paga: R$" + String.format("%10.2f", totalValor));
-            alerta.setView(inflater.inflate(R.layout.proposta, null));
-
-            final AlertDialog alert = alerta.create();
-
-            alert.show();
-
+            Toast toast = Toast.makeText(this, "Não foi possível registrar a proposta.", Toast.LENGTH_LONG);
+            toast.show();
         }
     }
 

@@ -25,7 +25,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/lista_propostas"
+        android:id="@+id/listagem_propostas"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"></ListView>
 

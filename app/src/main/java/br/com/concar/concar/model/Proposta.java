@@ -9,7 +9,7 @@ public class Proposta {
     private int num_parcelas;
     private double valor_entrada;
     private double valor_carro;
-    private double valor_final;
+    private double valor_parcela;
     private boolean confirmacao;
     private int idCarro;
     private int idCliente;
@@ -54,12 +54,12 @@ public class Proposta {
         this.valor_carro = valor_carro;
     }
 
-    public double getValor_final() {
-        return valor_final;
+    public double getValor_parcela() {
+        return valor_parcela;
     }
 
-    public void setValor_final(double valor_final) {
-        this.valor_final = valor_final;
+    public void setValor_parcela(double valor_parcela) {
+        this.valor_parcela = valor_parcela;
     }
 
     public boolean isConfirmacao() {
@@ -84,5 +84,10 @@ public class Proposta {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
+    }
+
+    @Override
+    public String toString() {
+        return this.id + ". " + this.idCarro;
     }
 }
