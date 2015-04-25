@@ -77,24 +77,31 @@ public class CarroDAO {
         return carros;
     }
 
-    public Carro showOne(Carro carro) {
-        Carro carroObj = new Carro();
+    public Carro showOne(int carro) {
+        Carro carroObj = null;
 
-        String whereClause = "id = ?";
+        String whereClause = "_id = ?";
         String[] whereArgs = new String[] {
-            String.valueOf(carro.getId())
+            String.valueOf(carro)
         };
-        String limit = "LIMIT 1";
-        Cursor cursor = database.query(DatabaseHelper.TABLE_C, colunas, whereClause, whereArgs, null, null, limit);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            carroObj = cursorToCarro(cursor);
-            cursor.moveToNext();
+        String limit = "1";
+        Cursor cursor = database.query(DatabaseHelper.TABLE_C, colunas, whereClause, whereArgs, null, null, null, limit);
+//        Cursor cursor = database.rawQuery("SELECT * FROM carros WHERE _id = ? LIMIT 1", whereArgs);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                carroObj = cursorToCarro(cursor);
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            return carroObj;
+
+        } else {
+            return null;
         }
 
-        cursor.close();
-
-        return carroObj;
     }
 
     private Carro cursorToCarro(Cursor cursor) {

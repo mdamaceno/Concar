@@ -12,7 +12,9 @@ import android.widget.Toast;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.concar.concar.dao.CarroDAO;
 import br.com.concar.concar.dao.PropostaDAO;
+import br.com.concar.concar.model.Carro;
 import br.com.concar.concar.model.Proposta;
 
 /**
@@ -20,6 +22,7 @@ import br.com.concar.concar.model.Proposta;
  */
 public class ListaPropostasActivity extends ActionBarActivity {
     private PropostaDAO database;
+    private CarroDAO dbCarro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +34,19 @@ public class ListaPropostasActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         database = new PropostaDAO(this);
+        dbCarro = new CarroDAO(this);
 
         try {
             database.open();
             final List<Proposta> values = database.index();
 
+
             ArrayAdapter<Proposta> adapter = new ArrayAdapter<Proposta>(this, android.R.layout.simple_list_item_1, values);
             ListView allvalues = (ListView)findViewById(R.id.listagem_propostas);
             allvalues.setAdapter(adapter);
+
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();
